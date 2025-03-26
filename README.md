@@ -183,3 +183,6 @@ Goal state found at 289 iteration
 
 ```
 
+## Introduction epsilon, Hasard factor
+
+The introduction of a luck/hasard factor epsilon, made the learning much performant by randomly choosing a state to discover instead of the usual deterministic way.
