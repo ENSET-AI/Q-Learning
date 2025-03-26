@@ -51,7 +51,7 @@ Where:
 - $ \alpha $: Learning rate, which determines how much new information overrides old information.
 - $ R_t $: Reward received after taking action $ a_t $ in state $ s_t $.
 - $ \gamma $: Discount factor, which determines the importance of future rewards.
-- $ \max_{a} Q(s_{t+1}, a) $: Maximum Q-value for the next state $ s_{t+1} $ over all possible actions.
+- $ \max*{a} Q(s*{t+1}, a) $: Maximum Q-value for the next state $ s\_{t+1} $ over all possible actions.
 
 ---
 
@@ -87,7 +87,6 @@ grid_graph = {
 ### Q-Value Update Function
 
 ```python
-# filepath: c:\Users\yahya\OneDrive\Documents\SDIA\S2\SMA-IAD\Q-Learning\Main.ipynb
 def get_Q_update(
     state_Q: float,
     state_reward: float,
@@ -105,7 +104,6 @@ def get_Q_update(
 ### Epsilon-Greedy Action Selection
 
 ```python
-# filepath: c:\Users\yahya\OneDrive\Documents\SDIA\S2\SMA-IAD\Q-Learning\Main.ipynb
 def choose_action(current_state, neighbor_states, epsilon=0):
     if np.random.random() < epsilon:
         np.random.shuffle(neighbor_states)
