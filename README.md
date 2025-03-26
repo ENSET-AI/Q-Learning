@@ -42,50 +42,39 @@ $$
 
 Where:
 
-- $ Q(s_t, a_t) $: Current Q-value for state $ s_t \) and action $ $t \).
+- $ Q(s_t, a_t) $: Current Q-value for state $ s_t $ and action $ a_t $.
 - $ \alpha $: Learning rate, which determines how much new information overrides old information.
-- $ R_t $: Reward received after taking action \( a_t \) in state \( s_t \).
+- $ R_t $: Reward received after taking action $ a_t $ in state $ s_t $.
 - $ \gamma $: Discount factor, which determines the importance of future rewards.
-- $ \max*{a} Q(s*{t+1}, a) $: Maximum Q-value for the next state \( s\_{t+1} \) over all possible actions.
+- $ \max_{a} Q(s_{t+1}, a) $: Maximum Q-value for the next state $ s_{t+1} $ over all possible actions.
 
 ---
 
 ## Environment Map
+
 The grid graph used in this implementation is represented as follows:
 
 ```python
 grid_graph = {
-    "1": [("2", "right"), ("6", "down")],
-    "2": [("1", "left"), ("3", "right"), ("7", "down")],
-    "3": [("2", "left"), ("4", "right"), ("8", "down")],
-    "4": [("3", "left"), ("5", "right"), ("9", "down")],
-    "5": [("4", "left"), ("10", "down")],
-
-    "6": [("1", "up"), ("7", "right"), ("11", "down")],
-    "7": [("2", "up"), ("6", "left"), ("8", "right"), ("12", "down")],
-    "8": [("3", "up"), ("7", "left"), ("9", "right"), ("13", "down")],
-    "9": [("4", "up"), ("8", "left"), ("10", "right"), ("14", "down")],
-    "10": [("5", "up"), ("9", "left"), ("15", "down")],
-
-    "11": [("6", "up"), ("12", "right"), ("16", "down")],
-    "12": [("7", "up"), ("11", "left"), ("13", "right"), ("17", "down")],
-    "13": [("8", "up"), ("12", "left"), ("14", "right"), ("18", "down")],
-    "14": [("9", "up"), ("13", "left"), ("15", "right"), ("19", "down")],
-    "15": [("10", "up"), ("14", "left"), ("20", "down")],
-
-    "16": [("11", "up"), ("17", "right"), ("21", "down")],
-    "17": [("12", "up"), ("16", "left"), ("18", "right"), ("22", "down")],
-    "18": [("13", "up"), ("17", "left"), ("19", "right"), ("23", "down")],
-    "19": [("14", "up"), ("18", "left"), ("20", "right"), ("24", "down")],
-    "20": [("15", "up"), ("19", "left"), ("25", "down")],
-
-    "21": [("16", "up"), ("22", "right")],
-    "22": [("17", "up"), ("21", "left"), ("23", "right")],
-    "23": [("18", "up"), ("22", "left"), ("24", "right")],
-    "24": [("19", "up"), ("23", "left"), ("25", "right")],
-    "25": [("20", "up"), ("24", "left")]
+    "1": [("2", "right"), ("5", "down")],
+    "2": [("1", "left"), ("3", "right"), ("6", "down")],
+    "3": [("2", "left"), ("4", "right"), ("7", "down")],
+    "4": [("3", "left"), ("8", "down")],
+    "5": [("1", "up"), ("6", "right"), ("9", "down")],
+    "6": [("2", "up"), ("5", "left"), ("7", "right"), ("10", "down")],
+    "7": [("3", "up"), ("6", "left"), ("8", "right"), ("11", "down")],
+    "8": [("4", "up"), ("7", "left"), ("12", "down")],
+    "9": [("5", "up"), ("10", "right"), ("13", "down")],
+    "10": [("6", "up"), ("9", "left"), ("11", "right"), ("14", "down")],
+    "11": [("7", "up"), ("10", "left"), ("12", "right"), ("15", "down")],
+    "12": [("8", "up"), ("11", "left"), ("16", "down")],
+    "13": [("9", "up"), ("14", "right")],
+    "14": [("10", "up"), ("13", "left"), ("15", "right")],
+    "15": [("11", "up"), ("14", "left"), ("16", "right")],
+    "16": [("12", "up"), ("15", "left")],
 }
 ```
+
 ## Code Snippet
 
 Here is a snippet of the Q-value update function from `Main.ipynb`:
@@ -109,80 +98,86 @@ def get_Q_update(
 
 Below is an example of the execution output during the Q-Learning process. Only the first 5 steps and the last step are shown for brevity.
 
-```bash
+```
 Step 1:
 	current state: 1
-	neighbor states: [('2', 'right'), ('6', 'down')] 
-	neighbor states Q values: [0, 0] 
+	neighbor states: [('2', 'right'), ('5', 'down')]
+	neighbor states Q values: [0, 0]
 	Next action: "right" to state 2 with Q value = 0 and reward = -1
-	Updates Q value: -0.44999999999999996
+	Updates Q value: -1.0
 Step 2:
 	current state: 2
-	neighbor states: [('1', 'left'), ('3', 'right'), ('7', 'down')] 
-	neighbor states Q values: [0, 0, 0] 
+	neighbor states: [('1', 'left'), ('3', 'right'), ('6', 'down')]
+	neighbor states Q values: [0, 0, 0]
 	Next action: "left" to state 1 with Q value = 0 and reward = -1
-	Updates Q value: -0.44999999999999996
+	Updates Q value: -1.0
 Step 3:
 	current state: 1
-	neighbor states: [('2', 'right'), ('6', 'down')] 
-	neighbor states Q values: [-0.44999999999999996, 0] 
-	Next action: "down" to state 6 with Q value = 0 and reward = -1
-	Updates Q value: -0.44999999999999996
-Step 4:
-	current state: 6
-	neighbor states: [('1', 'up'), ('7', 'right'), ('11', 'down')] 
-	neighbor states Q values: [0, 0, 0] 
-	Next action: "up" to state 1 with Q value = 0 and reward = -1
-	Updates Q value: -0.44999999999999996
-Step 5:
-	current state: 1
-	neighbor states: [('2', 'right'), ('6', 'down')] 
-	neighbor states Q values: [-0.44999999999999996, -0.44999999999999996] 
-	Next action: "right" to state 2 with Q value = -0.44999999999999996 and reward = -1
-	Updates Q value: -0.7649999999999999
-
-Step 283:
-	current state: 3
-	neighbor states: [('2', 'left'), ('4', 'right'), ('8', 'down')] 
-	neighbor states Q values: [-1.9604294999999998, -1.7180999999999997, -1.7180999999999997] 
-	Next action: "right" to state 4 with Q value = -1.7180999999999997 and reward = -1
-	Updates Q value: -1.9604294999999998
-Step 284:
-	current state: 4
-	neighbor states: [('3', 'left'), ('5', 'right'), ('9', 'down')] 
-	neighbor states Q values: [-1.247895, -1.13985, -1.13985] 
-	Next action: "right" to state 5 with Q value = -1.13985 and reward = -1
-	Updates Q value: -1.247895
-Step 285:
-	current state: 5
-	neighbor states: [('4', 'left'), ('10', 'down')] 
-	neighbor states Q values: [-1.43145, -1.107] 
-	Next action: "down" to state 10 with Q value = -1.107 and reward = -1
-	Updates Q value: -1.43145
-Step 286:
-	current state: 10
-	neighbor states: [('5', 'up'), ('9', 'left'), ('15', 'down')] 
-	neighbor states Q values: [-0.9854999999999999, -0.9854999999999999, -0.7649999999999999] 
-	Next action: "down" to state 15 with Q value = -0.7649999999999999 and reward = -1
-	Updates Q value: -0.9854999999999999
-Step 287:
-	current state: 15
-	neighbor states: [('10', 'up'), ('14', 'left'), ('20', 'down')] 
-	neighbor states Q values: [-0.7649999999999999, -0.7649999999999999, -0.44999999999999996] 
-	Next action: "down" to state 20 with Q value = -0.44999999999999996 and reward = -1
-	Updates Q value: -0.7649999999999999
-Step 288:
-	current state: 20
-	neighbor states: [('15', 'up'), ('19', 'left'), ('25', 'down')] 
-	neighbor states Q values: [-0.44999999999999996, -0.44999999999999996, 0] 
-	Next action: "down" to state 25 with Q value = 0 and reward = -1
-	Updates Q value: -0.44999999999999996
-Step 289:
-	current state: 25
-Goal state found at 289 iteration
-
+	neighbor states: [('2', 'right'), ('5', 'down')]
+	neighbor states Q values: [-1.0, 0]
+	Next action: "down" to state 5 with Q value = 0 and reward = -1
+	Updates Q value: -1.0
+Step 125:
+	current state: 8
+	neighbor states: [('4', 'up'), ('7', 'left'), ('12', 'down')]
+	neighbor states Q values: [-1.5, -1.5, -1.0]
+	Next action: "down" to state 12 with Q value = -1.0 and reward = -1
+	Updates Q value: -1.5
+Step 126:
+	current state: 12
+	neighbor states: [('8', 'up'), ('11', 'left'), ('16', 'down')]
+	neighbor states Q values: [-1.0, -1.0, 0]
+	Next action: "down" to state 16 with Q value = 0 and reward = -1
+	Updates Q value: -1.0
+Step 127:
+	current state: 16
+Goal state found at 127 iteration
 ```
 
 ## Introduction epsilon, Hasard factor
 
 The introduction of a luck/hasard factor epsilon, made the learning much performant by randomly choosing a state to discover instead of the usual deterministic way.
+
+### Execution Output
+
+```
+Step 1:
+	current state: 1
+	neighbor states: [('2', 'right'), ('5', 'down')]
+	neighbor states Q values: [0, 0]
+	Next action: "right" to state 2 with Q value = 0 and reward = -1
+	Updates Q value: -1.0
+Step 2:
+	current state: 2
+	neighbor states: [('1', 'left'), ('3', 'right'), ('6', 'down')]
+	neighbor states Q values: [0, 0, 0]
+	Next action: "left" to state 1 with Q value = 0 and reward = -1
+	Updates Q value: -1.0
+Step 3:
+	current state: 1
+	neighbor states: [('2', 'right'), ('5', 'down')]
+	neighbor states Q values: [-1.0, 0]
+	Next action: "down" to state 5 with Q value = 0 and reward = -1
+	Updates Q value: -1.0
+Step 32:
+	current state: 7
+	neighbor states: [('3', 'up'), ('6', 'left'), ('8', 'right'), ('11', 'down')]
+	neighbor states Q values: [-1.0, -1.0, 0, 0]
+	Next action: "right" to state 8 with Q value = 0 and reward = -1
+	Updates Q value: -1.0
+Step 33:
+	current state: 8
+	neighbor states: [('4', 'up'), ('12', 'down'), ('7', 'left')]
+	neighbor states Q values: [-1.5, 0, 0]
+	Next action: "down" to state 12 with Q value = 0 and reward = -1
+	Updates Q value: -1.0
+Step 34:
+	current state: 12
+	neighbor states: [('8', 'up'), ('11', 'left'), ('16', 'down')]
+	neighbor states Q values: [0, 0, 0]
+	Next action: "down" to state 16 with Q value = 0 and reward = -1
+	Updates Q value: -1.0
+Step 35:
+	current state: 16
+Goal state found at 35 iteration
+```
