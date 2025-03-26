@@ -42,11 +42,11 @@ $$
 
 Where:
 
-- \( Q(s_t, a_t) \): Current Q-value for state \( s_t \) and action \( a_t \).
-- \( \alpha \): Learning rate, which determines how much new information overrides old information.
-- \( R_t \): Reward received after taking action \( a_t \) in state \( s_t \).
-- \( \gamma \): Discount factor, which determines the importance of future rewards.
-- \( \max*{a} Q(s*{t+1}, a) \): Maximum Q-value for the next state \( s\_{t+1} \) over all possible actions.
+- $ Q(s_t, a_t) $: Current Q-value for state $ s_t \) and action $ $t \).
+- $ \alpha $: Learning rate, which determines how much new information overrides old information.
+- $ R_t $: Reward received after taking action \( a_t \) in state \( s_t \).
+- $ \gamma $: Discount factor, which determines the importance of future rewards.
+- $ \max*{a} Q(s*{t+1}, a) $: Maximum Q-value for the next state \( s\_{t+1} \) over all possible actions.
 
 ---
 
