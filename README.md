@@ -1,5 +1,9 @@
 # Q-Learning
 
+## Notebook Link
+
+For the full implementation and execution, refer to the [Main.ipynb](./Main.ipynb) notebook.
+
 ## Introduction
 
 Q-Learning is a model-free reinforcement learning algorithm used to find the optimal action-selection policy for a given finite Markov Decision Process (MDP). It is based on learning the Q-value, which represents the expected utility of taking a certain action in a given state and following the optimal policy thereafter.
@@ -15,6 +19,7 @@ The Q-Learning algorithm iteratively updates Q-values for state-action pairs bas
 - **Environment Representation**: A grid graph where each state is a node, and edges represent possible actions.
 - **Reward System**: Rewards are assigned to states to guide the agent toward the goal.
 - **Q-Value Updates**: Q-values are updated using the Bellman equation.
+- **Exploration Factor (Epsilon)**: Introduces randomness to improve exploration of the state space.
 
 ---
 
@@ -25,7 +30,7 @@ The Q-Learning algorithm works as follows:
 1. Initialize Q-values for all state-action pairs to zero.
 2. For each step:
    - Observe the current state.
-   - Choose an action based on the current Q-values (e.g., using a greedy policy).
+   - Choose an action based on the current Q-values (e.g., using an epsilon-greedy policy).
    - Transition to the next state and observe the reward.
    - Update the Q-value for the current state-action pair using the Q-Learning update rule.
 3. Repeat until the goal state is reached or a stopping condition is met.
@@ -75,11 +80,14 @@ grid_graph = {
 }
 ```
 
-## Code Snippet
+---
 
-Here is a snippet of the Q-value update function from `Main.ipynb`:
+## Code Snippets
+
+### Q-Value Update Function
 
 ```python
+# filepath: c:\Users\yahya\OneDrive\Documents\SDIA\S2\SMA-IAD\Q-Learning\Main.ipynb
 def get_Q_update(
     state_Q: float,
     state_reward: float,
@@ -93,6 +101,19 @@ def get_Q_update(
         (state_reward + step_penalty) + discount_factor * max(neighbor_states_Q) - state_Q
     )
 ```
+
+### Epsilon-Greedy Action Selection
+
+```python
+# filepath: c:\Users\yahya\OneDrive\Documents\SDIA\S2\SMA-IAD\Q-Learning\Main.ipynb
+def choose_action(current_state, neighbor_states, epsilon=0):
+    if np.random.random() < epsilon:
+        np.random.shuffle(neighbor_states)
+        return neighbor_states[0]
+    return get_next_state(current_state, neighbor_states)
+```
+
+---
 
 ## Execution Output
 
@@ -134,9 +155,11 @@ Step 127:
 Goal state found at 127 iteration
 ```
 
+---
+
 ## Introduction epsilon, Hasard factor
 
-The introduction of a luck/hasard factor epsilon, made the learning much performant by randomly choosing a state to discover instead of the usual deterministic way.
+The introduction of a luck/hasard factor epsilon made the learning much more efficient by randomly choosing a state to explore instead of following a deterministic approach.
 
 ### Execution Output
 
@@ -181,3 +204,5 @@ Step 35:
 	current state: 16
 Goal state found at 35 iteration
 ```
+
+---
