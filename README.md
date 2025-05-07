@@ -1,5 +1,16 @@
 # Q-Learning
 
+## Table of Contents
+- [Notebook Link](#notebook-link)
+- [Introduction](#introduction)
+- [Summary](#summary)
+- [Principle](#principle)
+- [The Math](#the-math)
+- [Environment Map](#environment-map)
+- [Code Snippets](#code-snippets)
+- [Execution Output](#execution-output)
+- [Epsilon and Hazard Factor](#introduction-epsilon-hasard-factor)
+
 ## Notebook Link
 
 For the full implementation and execution, refer to the [Main.ipynb](./Main.ipynb) notebook.
@@ -51,7 +62,7 @@ Where:
 - $ \alpha $: Learning rate, which determines how much new information overrides old information.
 - $ R_t $: Reward received after taking action $ a_t $ in state $ s_t $.
 - $ \gamma $: Discount factor, which determines the importance of future rewards.
-- $ \max*{a} Q(s*{t+1}, a) $: Maximum Q-value for the next state $ s\_{t+1} $ over all possible actions.
+- $ \max_{a} Q(s_{t+1}, a) $: Maximum Q-value for the next state $ s_{t+1} $ over all possible actions.
 
 ---
 
